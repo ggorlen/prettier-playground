@@ -1,0 +1,32 @@
+:root { /* redundant; see meta tag in HTML */
+  color-scheme: light dark;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  padding: 2em;
+  max-width: 600px;
+}
+
+body, pre, textarea, button {
+  font-size: 0.9em;
+  font-family: 'Nimbus Mono PS', 'Courier New', 'Cutive Mono', monospace;
+}
+
+button {
+  margin-top: 1em;
+  margin-bottom: 1em;
+  padding: 0.7em;
+  cursor: pointer;
+  border: 0;
+  border-radius: 5px;
+}
+
+textarea {
+  width: 100%;
+  padding: 0.5em;
+  min-height: 200px;
+}
