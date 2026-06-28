@@ -1,4 +1,4 @@
-const config = {
+const defaultConfig = {
   "arrowParens": "avoid",
   "bracketSameLine": false,
   "bracketSpacing": false,
@@ -19,13 +19,26 @@ const config = {
   "vueIndentScriptAndStyle": false
 };
 
+const outputEl = document.querySelector("pre");
+
+const configEl = document.querySelector("#config");
+configEl.value ||= JSON.stringify(defaultConfig, null, 2);
+configEl.addEventListener("keyup", () => format());
+
 document.querySelector("button").addEventListener("click", (e) => {
-  copyToClipboard(document.querySelector("pre").textContent);
+  copyToClipboard(outputEl.textContent);
 });
 
-document
-  .querySelector("textarea")
-  .addEventListener("keyup", (e) => format(e.target.value));
+const codeEl = document.querySelector("#code");
+codeEl.addEventListener("keyup", (e) => format(e.target.value));
+codeEl.focus();
+codeEl.select();
+
+let parser = "babel";
+document.querySelector("select").addEventListener("change", event => {
+  parser = event.target.value;
+  format();
+});
 
 const copyToClipboard = text => {
   const ta = document.createElement("textarea");
@@ -36,17 +49,15 @@ const copyToClipboard = text => {
   document.body.removeChild(ta);
 };
 
-const format = (text) => {
+const format = () => {
   try {
-    const formatted = prettier.format(text, {
-      parser: "babel",
+    const formatted = prettier.format(codeEl.value, {
+      parser,
       plugins: prettierPlugins,
-      ...config,
+      ...JSON.parse(configEl.value)
     });
-    document.querySelector("pre").textContent = formatted;
+    outputEl.textContent = formatted;
   } catch (err) {
-    document.querySelector("pre").textContent = err.message;
+    outputEl.textContent = err.message;
   }
 };
-
-format(document.querySelector("textarea").value);

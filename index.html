@@ -29,12 +29,26 @@
     
     <script src="https://unpkg.com/prettier@2.8.4/standalone.js"></script>
     <script src="https://unpkg.com/prettier@2.8.4/parser-babel.js"></script>
+    <script src="https://unpkg.com/prettier@2.8.4/parser-html.js"></script>
+    <script src="https://unpkg.com/prettier@2.8.4/parser-typescript.js"></script>
     
   </head>
   <body>
-    <textarea autofocus placeholder="code to prettify here">/* paste code to prettify here */</textarea>
+    <textarea autofocus placeholder="code to prettify here" id="code">/* paste code to prettify here */</textarea>
     <div>
+      <details>
+        <summary>Prettier Config</summary>
+        <textarea autofocus placeholder="config here" id="config"></textarea>
+      </details>
       <button>copy to clipboard</button>
+      <label>
+        parser
+        <select>
+          <option>babel</option>
+          <option>html</option>
+          <option>typescript</option>
+        </select>
+      </label>
     </div>
     <pre></pre>
   </body>
